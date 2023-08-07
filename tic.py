@@ -1,3 +1,4 @@
+import sys
 board=["-","-","-",
        "-","-","-",
        "-","-","-"]
@@ -13,6 +14,7 @@ def winner(board):
         elif board[0]=="o":
             print("winner is o")
             exit()
+            
     elif (board[0] == board[3] and board[0] == board[6]):
         if board[0]=="x":
             print("winner is X")
@@ -55,39 +57,51 @@ def winner(board):
         elif board[1]=="o":
             print("winner is o")
             exit()
-def player():
+    
+def players_2(board):
     while True:
-        choose_player_1=int(input("choose from 0 to 8: "))
-        if choose_player_1<0 or choose_player_1 >8:
-            print("wrong number")
-        else:
-            if board[choose_player_1]=="-":
-                board[choose_player_1]="x"
-                printboard(board)
-            else:
-                while True:
-                    choose_player_1=int(input("choose from 0 to 8: "))
-                    if choose_player_1<0 or choose_player_1 >8:
-                        print("wrong number")
-                    else:
-                            break
-            
-            winner(board)
-            choose_player_2=int(input("choose from 0 to 8: "))
-            if choose_player_2<0 or choose_player_2 >8:
+        try:
+            player_2=int(input("enter number: "))
+            if player_2<0 or player_2>8:
                 print("wrong number")
-            else:
-                while True:
-                    if board[choose_player_2]=="-":
-                        board[choose_player_2]="o"
-                        printboard(board)
-                    else:
-                        printboard(board)
-                        print("\nwrong numver\n")
-                        choose_player_2=int(input("choose from 0 to 8: "))
-                        if choose_player_2<0 or choose_player_2 >8:
-                            print("wrong number")
-                        else:
-                            break
+                players_2(board)
+            elif player_2>=0 or player_2<=8:
+                if board[player_2]=="-":
+                    board[player_2]="o"
+                    printboard(board)
+                    break
+                else:
+                    print("select right number")
+                    players_2(board)
+        except:
+            print("wrong number")
+            players_2(board)
         
-player()
+def player(board):
+    while True:
+        try:
+            player_1=int(input("enter number:"))
+            if player_1<0 or player_1>8:
+                print("wrong number")
+                player(board)
+            elif player_1>=0 or player_1<=8:
+                if board[player_1]=="-":
+                    board[player_1]="x"
+                    printboard(board)
+                    break
+                    
+                    
+                else:
+                    print("select right number")
+                    player(board)
+        except:
+            print("wrong number")
+            player(board)
+
+            
+while True:
+    player(board)
+    winner(board)
+    players_2(board)
+    winner(board)
+    
